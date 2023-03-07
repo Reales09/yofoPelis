@@ -49,7 +49,7 @@ class _MoviePoste extends StatelessWidget {
                 arguments: 'nicue-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
+              child: const FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
                 image: NetworkImage(
                     'https://www.psifoundation.org/wp-content/uploads/2018/03/placeholder-300x400.png'),
