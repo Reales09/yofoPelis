@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../models/models.dart';
+
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Movie> movies;
+  final String? title;
+
+  const MovieSlider({super.key, required this.movies, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -11,22 +16,26 @@ class MovieSlider extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Populares',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          //Todo si no hay titulo, no deben mostrar este widget
+          if (this.title != null)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                this.title!,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
           SizedBox(
             height: 5,
           ),
           Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 20,
-                itemBuilder: (_, int index) => _MoviePoste()),
-          ),
+              child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: movies.length,
+            itemBuilder: (_, int index) => _MoviePoste(
+              movie: movies[index],
+            ),
+          )),
         ],
       ),
     );
@@ -34,7 +43,10 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoste extends StatelessWidget {
-  const _MoviePoste({super.key});
+  //Todo
+  //final Movie movie
+  final Movie movie;
+  const _MoviePoste({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +61,9 @@ class _MoviePoste extends StatelessWidget {
                 arguments: 'nicue-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
+              child: FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(
-                    'https://www.psifoundation.org/wp-content/uploads/2018/03/placeholder-300x400.png'),
+                image: NetworkImage(movie.fullPosterImg),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -63,7 +74,7 @@ class _MoviePoste extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Starwars: El retorno del el nuevo jedi de san andres',
+            movie.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
