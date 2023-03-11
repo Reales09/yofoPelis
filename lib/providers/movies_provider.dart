@@ -9,6 +9,8 @@ class MoviesProvider extends ChangeNotifier {
   String _apiKey = '66311435b5ddfea993a5c2cfdb55b4c4';
   String _baseUrl = 'api.themoviedb.org';
   String _language = 'es-ES';
+  int _page = 0;
+  int _pageUpcoming = 0;
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
@@ -22,14 +24,18 @@ class MoviesProvider extends ChangeNotifier {
     this.getUpcomingMovies();
   }
 
-  getOnDisplayMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/now_playing',
+  Future<String> _getJsonData(String endPoint, [int page = 1]) async {
+    var url = Uri.https(_baseUrl, endPoint,
         {'api_key': _apiKey, 'language': _language, 'page': '1'});
 
     // Await the http get response, then decode the json-formatted response.
     final response = await http.get(url);
+    return response.body;
+  }
 
-    final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
+  getOnDisplayMovies() async {
+    final jsonData = await this._getJsonData('3/movie/now_playing');
+    final nowPlayingResponse = NowPlayingResponse.fromRawJson(jsonData);
 
     onDisplayMovies = nowPlayingResponse.results;
 
@@ -37,13 +43,13 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getPopularMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/popular',
-        {'api_key': _apiKey, 'language': _language, 'page': '1'});
+    _page;
 
-    // Await the http get response, then decode the json-formatted response.
-    final response = await http.get(url);
+    final jsonData = await this._getJsonData(
+      '3/movie/popular',
+    );
 
-    final popularResponse = PopularResponse.fromRawJson(response.body);
+    final popularResponse = PopularResponse.fromRawJson(jsonData);
 
     popularMovies = [...popularMovies, ...popularResponse.results];
 
@@ -52,14 +58,10 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getUpcomingMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/upcoming',
-        {'api_key': _apiKey, 'language': _language, 'page': '1'});
+    _pageUpcoming;
+    final jsonData = await this._getJsonData('3/movie/upcoming');
 
-    // Await the http get response, then decode the json-formatted response.
-    final response = await http.get(url);
-
-    final upcomingResponse = UpcomingResponse.fromRawJson(response.body);
-    print("Upcoming ${response.body}");
+    final upcomingResponse = UpcomingResponse.fromRawJson(jsonData);
 
     upcomingMovies = [...upcomingMovies, ...upcomingResponse.results];
 
