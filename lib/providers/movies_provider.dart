@@ -45,9 +45,7 @@ class MoviesProvider extends ChangeNotifier {
   getPopularMovies() async {
     _page;
 
-    final jsonData = await this._getJsonData(
-      '3/movie/popular',
-    );
+    final jsonData = await this._getJsonData('3/movie/popular', _page);
 
     final popularResponse = PopularResponse.fromRawJson(jsonData);
 
@@ -59,7 +57,7 @@ class MoviesProvider extends ChangeNotifier {
 
   getUpcomingMovies() async {
     _pageUpcoming;
-    final jsonData = await this._getJsonData('3/movie/upcoming');
+    final jsonData = await this._getJsonData('3/movie/upcoming', _page);
 
     final upcomingResponse = UpcomingResponse.fromRawJson(jsonData);
 
