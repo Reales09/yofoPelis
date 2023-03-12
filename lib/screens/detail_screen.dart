@@ -25,12 +25,12 @@ class DetailScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               _PosterAndTitle(
-                title: movie.title,
-                posterPath: movie.fullPosterImg,
-                voteAverage: movie.voteAverage,
-                originalTitle: movie.originalTitle,
+                // title: movie.title,
+                // posterPath: movie.fullPosterImg,
+                // voteAverage: movie.voteAverage,
+                // originalTitle: movie.originalTitle,
+                movie: movie,
               ),
-              _Overview(overview: movie.overview),
               _Overview(overview: movie.overview),
               CastingCards(
                 movieId: movie.id,
@@ -82,17 +82,19 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  final String title;
-  final String originalTitle;
-  final double voteAverage;
-  final String posterPath;
+  // final String title;
+  // final String originalTitle;
+  // final double voteAverage;
+  // final String posterPath;
+  final Movie movie;
 
   const _PosterAndTitle(
       {super.key,
-      required this.title,
-      required this.originalTitle,
-      required this.posterPath,
-      required this.voteAverage});
+      // required this.title,
+      // required this.originalTitle,
+      // required this.posterPath,
+      // required this.voteAverage,
+      required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -103,13 +105,16 @@ class _PosterAndTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            // Crea un widget de una card con estilo redondeado
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.jpg'),
-              image: NetworkImage(posterPath),
-              height: 150,
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              // Crea un widget de una card con estilo redondeado
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movie.fullPosterImg),
+                height: 150,
+              ),
             ),
           ),
           SizedBox(
@@ -121,13 +126,13 @@ class _PosterAndTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  movie.title,
                   style: textTheme.headline6,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
-                  originalTitle,
+                  movie.originalTitle,
                   style: textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -137,7 +142,7 @@ class _PosterAndTitle extends StatelessWidget {
                     Icon(Icons.star_outline, size: 15, color: Colors.grey),
                     SizedBox(width: 5),
                     Text(
-                      voteAverage.toString(),
+                      movie.voteAverage.toString(),
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ],
