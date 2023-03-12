@@ -15,7 +15,7 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => MoviesProvider(), lazy: false),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         'details': (_) => const DetailScreen(),
       },
       theme: ThemeData.light().copyWith(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Colors.black,
         ),
       ),

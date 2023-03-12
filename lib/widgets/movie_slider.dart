@@ -15,7 +15,7 @@ class MovieSlider extends StatefulWidget {
 }
 
 class _MovieSliderState extends State<MovieSlider> {
-  final ScrollController scrollController = new ScrollController();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MovieSliderState extends State<MovieSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 260,
       child: Column(
@@ -62,7 +62,7 @@ class _MovieSliderState extends State<MovieSlider> {
             itemCount: widget.movies.length,
             itemBuilder: (_, int index) => _MoviePoste(
               movie: widget.movies[index],
-              heroId: '${widget.title}-${index}-${widget.movies[index].id}',
+              heroId: '${widget.title}-$index-${widget.movies[index].id}',
             ),
           )),
         ],
@@ -76,7 +76,7 @@ class _MoviePoste extends StatelessWidget {
   //final Movie movie
   final Movie movie;
   final String heroId;
-  const _MoviePoste({super.key, required this.movie, required this.heroId});
+  const _MoviePoste({required this.movie, required this.heroId});
 
   @override
   Widget build(BuildContext context) {

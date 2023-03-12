@@ -2,6 +2,8 @@
 //
 //     final creditsResponse = creditsResponseFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names, duplicate_ignore
+
 import 'dart:convert';
 
 class CreditsResponse {
@@ -68,8 +70,9 @@ class Cast {
   String? job;
 
   get fullProfilePath {
-    if (this.profilePath != null)
-      return 'https://image.tmdb.org/t/p/w500${this.profilePath}';
+    if (profilePath != null) {
+      return 'https://image.tmdb.org/t/p/w500$profilePath';
+    }
 
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
@@ -114,6 +117,7 @@ class Cast {
 }
 
 enum Department {
+  // ignore: constant_identifier_names
   ACTING,
   EDITING,
   PRODUCTION,

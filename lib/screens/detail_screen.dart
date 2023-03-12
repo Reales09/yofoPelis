@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:yofopelis/widgets/widgets.dart';
 
@@ -10,11 +8,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Cambiar luego por una instancia de movie
-
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
-
-    print(movie.title);
 
     return Scaffold(
       body: CustomScrollView(
@@ -46,8 +40,7 @@ class DetailScreen extends StatelessWidget {
 class _CustomAppBar extends StatelessWidget {
   final Movie movie;
 
-  _CustomAppBar({
-    super.key,
+  const _CustomAppBar({
     required this.movie,
   });
   @override
@@ -59,20 +52,20 @@ class _CustomAppBar extends StatelessWidget {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        titlePadding: EdgeInsets.all(0),
+        titlePadding: const EdgeInsets.all(0),
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(bottom: 10, left: 20, right: 10),
+          padding: const EdgeInsets.only(bottom: 10, left: 20, right: 10),
           color: Colors.black12,
           child: Text(
             movie.title,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ),
         ),
         background: FadeInImage(
-          placeholder: AssetImage('assets/loading.gif'),
+          placeholder: const AssetImage('assets/loading.gif'),
           image: NetworkImage(movie.fullBackdropPath),
           fit: BoxFit.cover,
         ),
@@ -88,13 +81,7 @@ class _PosterAndTitle extends StatelessWidget {
   // final String posterPath;
   final Movie movie;
 
-  const _PosterAndTitle(
-      {super.key,
-      // required this.title,
-      // required this.originalTitle,
-      // required this.posterPath,
-      // required this.voteAverage,
-      required this.movie});
+  const _PosterAndTitle({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -111,13 +98,13 @@ class _PosterAndTitle extends StatelessWidget {
               // Crea un widget de una card con estilo redondeado
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
+                placeholder: const AssetImage('assets/no-image.jpg'),
                 image: NetworkImage(movie.fullPosterImg),
                 height: 150,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           ConstrainedBox(
@@ -127,13 +114,13 @@ class _PosterAndTitle extends StatelessWidget {
               children: [
                 Text(
                   movie.title,
-                  style: textTheme.headline6,
+                  style: textTheme.titleLarge,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
                   movie.originalTitle,
-                  style: textTheme.subtitle1,
+                  style: textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
@@ -145,11 +132,12 @@ class _PosterAndTitle extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.star_outline, size: 15, color: Colors.grey),
-                    SizedBox(width: 5),
+                    const Icon(Icons.star_outline,
+                        size: 15, color: Colors.grey),
+                    const SizedBox(width: 5),
                     Text(
                       movie.voteAverage.toString(),
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 )
@@ -164,16 +152,16 @@ class _PosterAndTitle extends StatelessWidget {
 
 class _Overview extends StatelessWidget {
   final String overview;
-  const _Overview({super.key, required this.overview});
+  const _Overview({required this.overview});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Text(
           overview,
           textAlign: TextAlign.justify,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ));
   }
 }

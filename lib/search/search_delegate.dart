@@ -11,7 +11,7 @@ class MovieSearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear_outlined),
+        icon: const Icon(Icons.clear_outlined),
         onPressed: () => query = '',
       )
     ];
@@ -20,7 +20,7 @@ class MovieSearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back_outlined),
+      icon: const Icon(Icons.arrow_back_outlined),
       onPressed: () {
         close(context, null);
       },
@@ -29,17 +29,15 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('buildResults');
+    return const Text('buildResults');
   }
 
   Widget _emptyContainer() {
-    return Container(
-      child: Center(
-        child: Icon(
-          Icons.movie_creation_outlined,
-          color: Colors.black38,
-          size: 130,
-        ),
+    return const Center(
+      child: Icon(
+        Icons.movie_creation_outlined,
+        color: Colors.black38,
+        size: 130,
       ),
     );
   }
@@ -47,8 +45,6 @@ class MovieSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) return _emptyContainer();
-
-    print('http request');
 
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
     moviesProvider.getSuggestionByQuery(query);
@@ -73,7 +69,7 @@ class MovieSearchDelegate extends SearchDelegate {
 class _MovieItem extends StatelessWidget {
   final Movie movie;
   // final String heroId;
-  _MovieItem({super.key, required this.movie});
+  const _MovieItem({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +78,7 @@ class _MovieItem extends StatelessWidget {
       leading: Hero(
         tag: movie.heroId!,
         child: FadeInImage(
-          placeholder: AssetImage('assets/no-image.jpg'),
+          placeholder: const AssetImage('assets/no-image.jpg'),
           image: NetworkImage(movie.fullPosterImg),
           width: 50,
           fit: BoxFit.contain,

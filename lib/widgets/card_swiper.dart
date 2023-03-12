@@ -12,45 +12,48 @@ class CardSwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    if (this.movies.length == 0) {
-      return Container(
+    if (movies.isEmpty) {
+      return SizedBox(
         width: double.infinity,
         height: size.height - 0.5,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(),
         ),
       );
     }
 
-    return SizedBox(
-      width: size.height * 0.3,
-      height: size.height * 0.5,
-      child: Swiper(
-        itemCount: movies.length,
-        layout: SwiperLayout.STACK,
-        itemWidth: size.width * 0.6,
-        itemHeight: size.height * 0.45,
-        itemBuilder: (_, index) {
-          final movie = movies[index];
+    return Padding(
+      padding: const EdgeInsets.only(left: 50),
+      child: SizedBox(
+        width: size.height * 0.5,
+        height: size.height * 0.5,
+        child: Swiper(
+          itemCount: movies.length,
+          layout: SwiperLayout.STACK,
+          itemWidth: size.width * 0.6,
+          itemHeight: size.height * 0.45,
+          itemBuilder: (_, index) {
+            final movie = movies[index];
 
-          movie.heroId = 'swiper-${movie.id}';
+            movie.heroId = 'swiper-${movie.id}';
 
-          return GestureDetector(
-            onTap: () =>
-                Navigator.pushNamed(context, 'details', arguments: movie),
-            child: Hero(
-              tag: movie.heroId!,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'),
-                  image: NetworkImage(movie.fullPosterImg),
-                  fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () =>
+                  Navigator.pushNamed(context, 'details', arguments: movie),
+              child: Hero(
+                tag: movie.heroId!,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                    placeholder: const AssetImage('assets/no-image.jpg'),
+                    image: NetworkImage(movie.fullPosterImg),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
