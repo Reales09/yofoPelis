@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yofopelis/providers/movies_provider.dart';
+import 'package:yofopelis/search/search_delegate.dart';
 import 'package:yofopelis/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,7 +19,8 @@ class HomeScreen extends StatelessWidget {
           elevation: 0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () =>
+                  showSearch(context: context, delegate: MovieSearchDelegate()),
               icon: const Icon(Icons.search_outlined),
             )
           ],
