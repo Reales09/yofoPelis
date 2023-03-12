@@ -22,14 +22,14 @@ class CardSwiper extends StatelessWidget {
       );
     }
 
-    return Container(
-      width: double.infinity,
+    return SizedBox(
+      width: size.height * 0.3,
       height: size.height * 0.5,
       child: Swiper(
         itemCount: movies.length,
         layout: SwiperLayout.STACK,
         itemWidth: size.width * 0.6,
-        itemHeight: size.height * 0.4,
+        itemHeight: size.height * 0.45,
         itemBuilder: (_, index) {
           final movie = movies[index];
 

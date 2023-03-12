@@ -137,6 +137,12 @@ class _PosterAndTitle extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
+                Text(
+                  'Lanzamiento ${movie.releaseDate}',
+                  style: textTheme.titleSmall,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
                 Row(
                   children: [
                     Icon(Icons.star_outline, size: 15, color: Colors.grey),
