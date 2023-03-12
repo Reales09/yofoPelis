@@ -43,15 +43,16 @@ class _MovieSliderState extends State<MovieSlider> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //Todo si no hay titulo, no deben mostrar este widget
-          if (this.widget.title != null)
+          if (widget.title != null)
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                this.widget.title!,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                widget.title!,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Expanded(
@@ -95,7 +96,7 @@ class _MoviePoste extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'),
+                  placeholder: const AssetImage('assets/no-image.jpg'),
                   image: NetworkImage(movie.fullPosterImg),
                   width: 130,
                   height: 190,
@@ -104,7 +105,7 @@ class _MoviePoste extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(

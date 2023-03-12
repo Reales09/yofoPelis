@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:yofopelis/helpers/debouncer.dart';
 import 'package:yofopelis/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
@@ -11,6 +13,15 @@ class MoviesProvider extends ChangeNotifier {
   String _language = 'es-ES';
   int _page = 0;
   int _pageUpcoming = 0;
+
+  final debouncer = Debouncer(
+    duration: Duration(milliseconds: 500),
+  );
+  final StreamController<List<Movie>> _suggestionStreamController =
+      new StreamController.broadcast();
+
+  Stream<List<Movie>> get suggestionStream =>
+      this._suggestionStreamController.stream;
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
@@ -99,5 +110,20 @@ class MoviesProvider extends ChangeNotifier {
     final searchResponse = SearchResponse.fromRawJson(response.body);
 
     return searchResponse.results;
+  }
+
+  void getSuggestionByQuery(String searchTerm) {
+    debouncer.value = '';
+    debouncer.onValue = (value) async {
+      // print('tenemos valor a buscar: $value');
+      final result = await this.searchMovies(value);
+      this._suggestionStreamController.add(result);
+    };
+
+    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
+      debouncer.value = searchTerm;
+    });
+
+    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 }
