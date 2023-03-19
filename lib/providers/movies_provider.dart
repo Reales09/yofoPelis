@@ -10,7 +10,7 @@ import 'package:yofopelis/models/top_rated_response.dart';
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = '66311435b5ddfea993a5c2cfdb55b4c4';
   final String _baseUrl = 'api.themoviedb.org';
-  final String _language = 'es-ES';
+  final String _language = 'es-LA';
   final int _page = 0;
   final int _pageUpcoming = 0;
 
@@ -29,6 +29,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> topRatedMovies = [];
 
   Map<int, List<Cast>> moviesCast = {};
+  Map<int, List<Video>> videoMovie = {};
 
   MoviesProvider() {
     getOnDisplayMovies();
@@ -106,6 +107,19 @@ class MoviesProvider extends ChangeNotifier {
     moviesCast[movieId] = creditsResponse.cast;
 
     return creditsResponse.cast;
+  }
+
+  Future<List<Video>> getVideosMovies(int movieId) async {
+    if (videoMovie.containsKey(movieId)) return videoMovie[movieId]!;
+
+    final jsonData = await _getJsonData('3/movie/$movieId/videos');
+    final videoResponse = VideoResponse.fromRawJson(jsonData);
+
+    videoMovie[movieId] = videoResponse.results;
+
+    print('Resultado $videoResponse');
+
+    return videoResponse.results;
   }
 
   Future<List<Movie>> searchMovies(String query) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yofopelis/widgets/video_cards.dart';
 import 'package:yofopelis/widgets/widgets.dart';
 
 import '../models/models.dart';
@@ -29,6 +30,7 @@ class DetailScreen extends StatelessWidget {
               CastingCards(
                 movieId: movie.id,
               ),
+              VideoCards(movieId: movie.id)
             ]),
           )
         ],

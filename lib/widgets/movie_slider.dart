@@ -7,8 +7,12 @@ class MovieSlider extends StatefulWidget {
   final String? title;
   final Function onNextPage;
 
-  const MovieSlider(
-      {super.key, required this.movies, this.title, required this.onNextPage});
+  const MovieSlider({
+    super.key,
+    required this.movies,
+    this.title,
+    required this.onNextPage,
+  });
 
   @override
   State<MovieSlider> createState() => _MovieSliderState();
@@ -62,6 +66,8 @@ class _MovieSliderState extends State<MovieSlider> {
             itemCount: widget.movies.length,
             itemBuilder: (_, int index) => _MoviePoste(
               movie: widget.movies[index],
+              width: 130,
+              widthImage: 130,
               heroId: '${widget.title}-$index-${widget.movies[index].id}',
             ),
           )),
@@ -76,14 +82,21 @@ class _MoviePoste extends StatelessWidget {
   //final Movie movie
   final Movie movie;
   final String heroId;
-  const _MoviePoste({required this.movie, required this.heroId});
+  final double width;
+  final double widthImage;
+
+  const _MoviePoste(
+      {required this.movie,
+      required this.heroId,
+      required this.width,
+      required this.widthImage});
 
   @override
   Widget build(BuildContext context) {
     movie.heroId = heroId;
 
     return Container(
-      width: 130,
+      width: width,
       height: 190,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -98,7 +111,7 @@ class _MoviePoste extends StatelessWidget {
                 child: FadeInImage(
                   placeholder: const AssetImage('assets/no-image.jpg'),
                   image: NetworkImage(movie.fullPosterImg),
-                  width: 130,
+                  width: widthImage,
                   height: 190,
                   fit: BoxFit.cover,
                 ),
