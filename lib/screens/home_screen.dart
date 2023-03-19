@@ -41,6 +41,11 @@ class HomeScreen extends StatelessWidget {
                 title: 'Proximos',
                 onNextPage: () => moviesProvider.getUpcomingMovies(),
               ),
+              MovieSlider(
+                movies: moviesProvider.topRatedMovies,
+                title: 'Top mejores calificados',
+                onNextPage: () => moviesProvider.getTopRatedMovies(),
+              ),
             ],
           ),
         ));

@@ -80,7 +80,8 @@ class _MovieItem extends StatelessWidget {
         child: FadeInImage(
           placeholder: const AssetImage('assets/no-image.jpg'),
           image: NetworkImage(movie.fullPosterImg),
-          width: 50,
+          width: 40,
+          height: 80,
           fit: BoxFit.contain,
         ),
       ),

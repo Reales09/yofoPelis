@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:yofopelis/helpers/debouncer.dart';
 import 'package:yofopelis/models/models.dart';
+import 'package:yofopelis/models/top_rated_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = '66311435b5ddfea993a5c2cfdb55b4c4';
@@ -25,6 +26,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
   List<Movie> upcomingMovies = [];
+  List<Movie> topRatedMovies = [];
 
   Map<int, List<Cast>> moviesCast = {};
 
@@ -32,6 +34,7 @@ class MoviesProvider extends ChangeNotifier {
     getOnDisplayMovies();
     getPopularMovies();
     getUpcomingMovies();
+    getTopRatedMovies();
   }
 
   Future<String> _getJsonData(String endPoint, [int page = 1]) async {
@@ -62,6 +65,20 @@ class MoviesProvider extends ChangeNotifier {
     final popularResponse = PopularResponse.fromRawJson(jsonData);
 
     popularMovies = [...popularMovies, ...popularResponse.results];
+
+    notifyListeners();
+  }
+
+  getTopRatedMovies() async {
+    _page;
+
+    final jsonData = await _getJsonData(
+      '3/movie/top_rated',
+    );
+
+    final topRatedResponse = TopRatedResponse.fromRawJson(jsonData);
+
+    topRatedMovies = [...topRatedMovies, ...topRatedResponse.results];
 
     notifyListeners();
   }

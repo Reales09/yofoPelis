@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yofopelis/widgets/widgets.dart';
 
 import '../models/models.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
@@ -30,17 +29,6 @@ class DetailScreen extends StatelessWidget {
               CastingCards(
                 movieId: movie.id,
               ),
-              YoutubePlayer(
-                controller: YoutubePlayerController(
-                  initialVideoId: 'FfqY1WnKNFo', // El ID del video de YouTube
-                  flags: const YoutubePlayerFlags(
-                    autoPlay: true, // Si el video debe iniciar automáticamente
-                    mute: false, // Si el video debe estar en silencio
-                  ),
-                ),
-                showVideoProgressIndicator:
-                    true, // Si se muestra el indicador de progreso del video
-              )
             ]),
           )
         ],
